@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jms="http://www.springframework.org/schema/jms"
+    xmlns:jee="http://www.springframework.org/schema/jee"
+    xsi:schemaLocation="http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+        http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    
+      <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+         <property name="brokerURL" value="${spring.activemq.broker-url}"/>
+                 <property name="userName" value="${spring.activemq.user}"/>
+                 <property name="password" value="${spring.activemq.password}"/>
+    </bean>
+
+    <!-- ConnectionFactory Definition -->
+    <bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
+        <constructor-arg ref="amqConnectionFactory" />
+        <property name="sessionCacheSize" value="10"/>
+		<property name="cacheConsumers" value="false"/>
+    </bean>
+    
+    <bean id="receiveQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0">
+            <value>world.queue</value>
+        </constructor-arg> 
+    </bean>
+    
+    <bean id="sendQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0">
+            <value>world.queue</value>
+        </constructor-arg> 
+    </bean>
+    
+    <bean id="messageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="receiveQueue"/>
+        <property name="sessionTransacted" value="true"/>
+        <property name="maxConcurrentConsumers" value="1"/>
+        <property name="concurrentConsumers" value="1"/>
+        <property name="receiveTimeout" value="5000"/>
+        <property name="recoveryInterval" value="60000"/>
+        <property name="autoStartup" value="true"/>  
+<!--         <property name="errorHandler" ref="exceptionHandler"/>   
+ -->    </bean>
+     
+</beans>

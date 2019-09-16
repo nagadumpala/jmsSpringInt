@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ReceiveService  {
 	public Object processMsg(Message<?> msg) {
-		DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		System.out.println("received " +(String) msg.getPayload());
-
+	
 		return msg.getPayload();
 	}
 

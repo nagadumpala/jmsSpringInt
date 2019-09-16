@@ -2,7 +2,7 @@ package com.example.demo.services;
 
 public interface AMQSender {
 
-	public void sendMsg(Object msg);
+	public void send(Object msg);
 	
 
 }

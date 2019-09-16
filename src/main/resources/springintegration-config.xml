@@ -19,13 +19,13 @@
 
 	<int-jms:message-driven-channel-adapter
 		id="inRecvJMSAdapater" container="messageListenerContainer"
-		channel="inRecvChannel" pub-sub-domain="false"
+		channel="inRecvChannel" pub-sub-domain="${systemProperties['spring.activemq.topic'] ? true : false}"
 		/>
 
 	<int-jms:outbound-channel-adapter
 		id="jmsSendAdapter" channel="outSendChannel"
 		connection-factory="connectionFactory" destination="sendQueue"
-		delivery-persistent="true" pub-sub-domain="false"
+		delivery-persistent="true" pub-sub-domain="${systemProperties['spring.activemq.topic'] ? true : false}"
 		session-transacted="true"></int-jms:outbound-channel-adapter>
 	<integration:channel id="inRecvChannel">
 		<integration:interceptors>

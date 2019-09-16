@@ -9,7 +9,6 @@ import org.springframework.integration.config.EnableIntegration;
 import org.springframework.jms.annotation.EnableJms;
 
 import com.example.demo.services.AMQSender;
-import com.example.demo.services.MessageReceiverService;
 
 @SpringBootApplication
 @EnableJms
@@ -17,9 +16,7 @@ import com.example.demo.services.MessageReceiverService;
 @ImportResource("classpath*:/springintegration-config.xml")
 public class DemoApplication implements CommandLineRunner {
 
-	@Autowired
-	MessageReceiverService messageReceiverService;
-	
+
 	@Autowired
 	AMQSender aMQSender;
 	
@@ -32,7 +29,7 @@ public class DemoApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 //		aMQReceiver.processMsg(msg);
 //		Deal d = new Deal("Dd",2334);
-		aMQSender.sendMsg("fxgfg");
+		aMQSender.send("fxgfg");
 		System.out.println("sending successfully");
 
 		

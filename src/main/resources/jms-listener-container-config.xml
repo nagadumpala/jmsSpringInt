@@ -23,13 +23,13 @@
     
     <bean id="receiveQueue" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg index="0">
-            <value>world.queue</value>
+            <value>${spring.activemq.queue}</value>
         </constructor-arg> 
     </bean>
     
     <bean id="sendQueue" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg index="0">
-            <value>world.queue</value>
+            <value>${spring.activemq.queue}</value>
         </constructor-arg> 
     </bean>
     

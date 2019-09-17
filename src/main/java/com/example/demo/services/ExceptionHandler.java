@@ -27,9 +27,9 @@ public class ExceptionHandler implements ErrorHandler {
                 org.springframework.messaging.Message<?> message = exception.getFailedMessage();
                 Object payloadObject = message.getPayload();
                 if (null != payloadObject) {
-                	System.out.println("exception " + exception.getMessage());
+                	System.out.println("exception --->" + exception.getMessage());
 
-                	System.out.println("Payload  is not null, type is: " + payloadObject);
+                	System.out.println("Payload request is: " + payloadObject);
 //                    LOG.info("Payload  is not null, type is: " + payloadObject);
                 }
             }
